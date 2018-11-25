@@ -107,12 +107,14 @@ def create_them():
 @web.route('/dashboard')
 @login_required
 def dashboard():
-    events = get_events()
+    # events = get_events()
+    events = Event.objects
+    recommended = []
     ids=current_user.get_preferences_keys()
     d={}
     for i in ids:
         d[categories[int(i)]]=int(i)
-    return render_template('dashboard.html', name=current_user.email, events=events, cats=d)
+    return render_template('dashboard.html', name=current_user.email, events=events, recommended=recommended, cats=d)
 
 
 @web.route('/logout', methods=['GET'])
